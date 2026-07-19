@@ -1,36 +1,366 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AI Chat Application
 
-## Getting Started
+A full-stack AI chat application built with **Next.js 15**, **Vercel AI SDK**, **OpenAI**, **Prisma**, **PostgreSQL**, and **Clerk Authentication**.
 
-First, run the development server:
+The application supports persistent conversations, tool calling, streaming AI responses, chat branching, and modern UI built with Shadcn/UI.
+
+---
+
+## Features
+
+### 🤖 AI Chat
+
+- AI powered conversations using OpenAI
+- Streaming responses
+- Persistent chat history
+- Markdown rendering
+- Conversation export
+- Multiple conversation support
+
+---
+
+## Tool Calling
+
+The project supports AI tool calling with external integrations.
+
+### Features
+
+- Tool Integration
+- Tool Invocation
+- Streaming Tool Responses
+- Error Handling
+- Database Persistence
+
+Current integrated tool:
+
+- Firecrawl Web Search
+
+The AI can invoke external tools whenever required and continue streaming the response after the tool finishes execution.
+
+---
+
+## Chat Branching
+
+Supports conversation branching allowing multiple response paths.
+
+### Features
+
+- Create new branches
+- Navigate between branches
+- Branch persistence
+- Stored inside database
+- Multiple versions of assistant responses
+
+---
+
+## Authentication
+
+Authentication is handled using Clerk.
+
+Features include:
+
+- Sign In
+- Protected Routes
+- User Onboarding
+- User-specific conversations
+
+---
+
+## Database
+
+Prisma ORM is used for database operations.
+
+Features:
+
+- Persistent conversations
+- Persistent messages
+- User management
+- Branch storage
+- Conversation metadata
+
+Database:
+
+- PostgreSQL
+
+---
+
+## Tech Stack
+
+### Frontend
+
+- Next.js 15
+- React
+- TypeScript
+- Tailwind CSS
+- Shadcn/UI
+- TanStack Query
+
+### Backend
+
+- Next.js Route Handlers
+- Prisma ORM
+- PostgreSQL
+
+### AI
+
+- Vercel AI SDK
+- OpenAI
+- Firecrawl
+
+### Authentication
+
+- Clerk
+
+---
+
+# Project Structure
+
+```
+app/
+│
+├── api/
+│   └── chat/
+│
+├── (auth)/
+│
+├── (root)/
+│
+components/
+│
+features/
+│
+├── ai/
+│   ├── actions/
+│   ├── tools/
+│   └── utils/
+│
+├── conversation/
+│
+├── auth/
+│
+├── home/
+│
+└── messages/
+│
+lib/
+│
+prisma/
+│
+public/
+```
+
+---
+
+# Installation
+
+Clone the repository.
+
+```bash
+git clone https://github.com/yourusername/your-repo.git
+
+cd your-repo
+```
+
+Install dependencies.
+
+```bash
+npm install
+```
+
+---
+
+# Environment Variables
+
+Copy the sample environment file.
+
+```bash
+cp .env.sample .env
+```
+
+Fill the following variables.
+
+```env
+DATABASE_URL=""
+
+CLERK_SECRET_KEY=""
+
+NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+
+NEXT_PUBLIC_SIGN_IN_FALLBACK_REDIRECT_URL=/
+
+NEXT_PUBLIC_SIGN_UP_FALLBACK_REDIRECT_URL=/
+
+OPENAI_API_KEY=""
+
+FIRECRAWL_API_KEY=""
+```
+
+---
+
+# Environment Variable Explanation
+
+| Variable | Description |
+|-----------|-------------|
+| DATABASE_URL | PostgreSQL connection string |
+| CLERK_SECRET_KEY | Clerk backend secret key |
+| NEXT_PUBLIC_CLERK_SIGN_IN_URL | Clerk sign-in route |
+| NEXT_PUBLIC_SIGN_IN_FALLBACK_REDIRECT_URL | Redirect after login |
+| NEXT_PUBLIC_SIGN_UP_FALLBACK_REDIRECT_URL | Redirect after signup |
+| OPENAI_API_KEY | OpenAI API Key |
+| FIRECRAWL_API_KEY | Firecrawl API Key |
+
+---
+
+# Clerk Configuration
+
+1. Create a Clerk account.
+
+2. Create a new application.
+
+3. Copy the Secret Key.
+
+4. Add the authentication URLs:
+
+```
+Sign In:
+/sign-in
+
+After Sign In:
+/
+
+After Sign Up:
+/
+```
+
+---
+
+# Database Setup
+
+Generate Prisma client.
+
+```bash
+npx prisma generate
+```
+
+Run migrations.
+
+```bash
+npx prisma migrate dev
+```
+
+(Optional)
+
+Open Prisma Studio.
+
+```bash
+npx prisma studio
+```
+
+---
+
+# Running the Project
+
+Development
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Production
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run build
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+npm start
+```
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+# Tool Calling Workflow
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+User Prompt
+      │
+      ▼
+AI Model
+      │
+      ▼
+Tool Detection
+      │
+      ▼
+Firecrawl Search
+      │
+      ▼
+Tool Result
+      │
+      ▼
+Streaming Response
+      │
+      ▼
+Database Persistence
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+# Chat Flow
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+User
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+   │
+
+   ▼
+
+Conversation
+
+   │
+
+   ▼
+
+AI Streaming
+
+   │
+
+   ▼
+
+Store Messages
+
+   │
+
+   ▼
+
+Display Conversation
+```
+
+---
+
+# Highlights
+
+- AI Streaming
+- Persistent Conversations
+- Tool Calling
+- Chat Branching
+- Authentication
+- Modern UI
+- Type Safety
+- Clean Architecture
+- Responsive Design
+
+---
+
+# Future Improvements
+
+- Multiple AI model support
+- File upload support
+- Image generation
+- Voice conversations
+- Conversation sharing
+- Real-time collaboration
+- Conversation search
+- Prompt templates
+
+---
+
+# License
+
+MIT License
