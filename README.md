@@ -5,6 +5,13 @@ A full-stack AI chat application built with **Next.js 15**, **Vercel AI SDK**, *
 The application supports persistent conversations, tool calling, streaming AI responses, chat branching, and modern UI built with Shadcn/UI.
 
 ---
+## 🚀 Live Demo
+
+Try the deployed application here:
+
+**🌐 https://chai-gpt-build-master-one.vercel.app/**
+
+---
 
 ## Features
 
